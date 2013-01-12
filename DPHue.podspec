@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/danparsons/DPHue"
   s.license      = "public domain"
   s.author       = { "Dan Parsons" => "dparsons@nyip.net" }
-  s.source       = { :git => "https://github.com/danparsons/DPHue.git", :commit => "d997129168dad6ae27fa22fc8a9218c41f2687aa" }
+  s.source       = { :git => "https://github.com/danparsons/DPHue.git", :commit => "58fcdb0a2a1ecddb7494be47ec612e34a6d98477" }
   s.source_files = 'DPHue/*.{h,m}'
   s.framework = 'CommonCrypto'
   s.requires_arc = true
