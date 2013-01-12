@@ -11,6 +11,7 @@
 #import "DPHueLight.h"
 #import "DPJSONConnection.h"
 #import "NSString+MD5.h"
+#import "WSLog.h"
 #import <CocoaAsyncSocket/GCDAsyncSocket.h>
 
 @interface DPHue ()
