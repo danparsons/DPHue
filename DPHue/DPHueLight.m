@@ -9,6 +9,7 @@
 
 #import "DPHueLight.h"
 #import "DPJSONConnection.h"
+#import "WSLog.h"
 
 @interface DPHueLight ()
 @property (nonatomic, readwrite) BOOL reachable;

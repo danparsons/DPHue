@@ -9,7 +9,6 @@
 
 #import <Foundation/Foundation.h>
 #import "DPJSONSerializable.h"
-#import "WSLog.h"
 
 @interface DPHueLight : NSObject <DPJSONSerializable, NSCoding>
 
