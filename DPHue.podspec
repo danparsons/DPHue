@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/danparsons/DPHue"
   s.license      = "public domain"
   s.author       = { "Dan Parsons" => "dparsons@nyip.net" }
-  s.source       = { :git => "https://github.com/danparsons/DPHue.git", :commit => "8b85a281f19ee89b8741daacf3093ca4e00a3007" }
+  s.source       = { :git => "https://github.com/danparsons/DPHue.git", :commit => "7cf8ef9be6f90fafdd71bc3a7a60748fdca3a45b" }
   s.source_files = 'DPHue/*.{h,m}'
   s.requires_arc = true
   s.dependency 'CocoaAsyncSocket', '~> 0.0.1'
