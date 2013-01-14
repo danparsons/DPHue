@@ -3,6 +3,8 @@ DPHue
 
 DPHue is an Objective-C library for controlling the Philips Hue lighting system. It allows you to read and write the entire state of a Philips Hue controller and all of the lights it manages, including changing individual lamp color, power state and other settings.
 
+DPHue works equally well on OS X and iOS.
+
 Features
 ========
 * Complete and granular management of the entire Philips Hue lighting system
