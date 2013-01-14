@@ -15,6 +15,7 @@ Caveats
 
 Examples
 ======================
+* The easiest way to use DPHue is via (CocoaPods)[http://cocoapods.org]
 * For a full implementation example, see QuickHue, an OS X menubar util, https://github.com/danparsons/QuickHue
 
 Turn on all lights:
