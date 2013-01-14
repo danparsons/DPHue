@@ -22,8 +22,8 @@ Examples
 
 Turn on all lights:
 ````objective-c
-DPHue *hue = [[DPHue alloc] initWithHueHost:@"192.168.0.53" username:@"088CA87723B99CBC38C44DDD0E7875A2";
-[hue readWithCompletion:^(DPHue *hue, NSError *err) {
+DPHue *someHue = [[DPHue alloc] initWithHueHost:@"192.168.0.53" username:@"088CA87723B99CBC38C44DDD0E7875A2";
+[someHue readWithCompletion:^(DPHue *hue, NSError *err) {
      [hue allLightsOn];
 }];
 ````
