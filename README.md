@@ -21,7 +21,7 @@ Examples
 * For a full implementation example, see QuickHue, an OS X menubar util, https://github.com/danparsons/QuickHue
 
 Turn on all lights:
-````objective-c
+````smalltalk
 DPHue *someHue = [[DPHue alloc] initWithHueHost:@"192.168.0.53" username:@"088CA87723B99CBC38C44DDD0E7875A2";
 [someHue readWithCompletion:^(DPHue *hue, NSError *err) {
      [hue allLightsOn];
@@ -29,7 +29,7 @@ DPHue *someHue = [[DPHue alloc] initWithHueHost:@"192.168.0.53" username:@"088CA
 ````
 
 Set light 2 to half brightness:
-````objective-c
+````smalltalk
 DPHue *someHue = [[DPHue alloc] initWithHueHost:@"192.168.0.53" username:@"088CA87723B99CBC38C44DDD0E7875A2";
 [someHue readWithCompletion:^(DPHue *hue, NSError *err) {
      DPHueLight *light = hue.lights[1];
