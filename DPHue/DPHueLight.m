@@ -220,8 +220,8 @@
     _colorMode = d[@"state"][@"colormode"];
     _hue = d[@"state"][@"hue"];
     _type = d[@"type"];
-    _on = (BOOL)d[@"state"][@"on"];
-    _reachable = (BOOL)d[@"state"][@"reachable"];
+    _on = [d[@"state"][@"on"] boolValue];
+    _reachable = [d[@"state"][@"reachable"] boolValue];
     _xy = d[@"state"][@"xy"];
     _colorTemperature = d[@"state"][@"ct"];
     _saturation = d[@"state"][@"sat"];
