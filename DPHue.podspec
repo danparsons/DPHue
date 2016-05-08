@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/danparsons/DPHue.git", :commit => "ed8bad3bdc49e53b01ad37e7b24e13e3bde193b1" }
   s.source_files = 'DPHue/*.{h,m}'
   s.requires_arc = true
-  s.dependency 'CocoaAsyncSocket', '~> 0.0.1'
+  s.dependency 'CocoaAsyncSocket', '~> 7.4.1'
   s.ios.deployment_target = '5.0'
   s.osx.deployment_target = '10.6'
 end

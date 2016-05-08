@@ -54,16 +54,8 @@
 @property (nonatomic, strong, readonly) NSURL *writeURL;
 
 
-// Utility method for generating a username that Hue will like
-// It requires usernames to be MD5 hashes
-// This method returns a md5 hash of the system's hostname
-+ (NSString *)generateUsername;
-
 // host is the hostname or IP of the Hue controller you want to talk to.
-// username has to be an md5 string - use [DPHue generateUsername] to
-// create one if you don't have one already. In that case, you'll also
-// have to register the username with the controller. See
-// [DPHue registerUsername].
+// username must be a username returned from the Hue controller.
 - (id)initWithHueHost:(NSString *)host username:(NSString *)username;
 
 // Download the complete state of the Hue controller, including the state
@@ -71,12 +63,12 @@
 // normally takes only 1 to 3 seconds.
 - (void)readWithCompletion:(void (^)(DPHue *hue, NSError *err))block;
 
-// This will attempt to register self.username with the Hue controller.
+// This will attempt to register a new username with the Hue controller.
 // This will fail unless the physical button on the Hue controller has
 // been pressed within the last 30 seconds. The workflow for this method
 // is a loop: tell the user to press the button on their controller, call
 // this method, then check self.authenticated. If NO, keep calling this
-// method. See DPQuickHue for implementation example.
+// method. Upon success, the new username is assigned to self.username.
 - (void)registerUsername;
 
 // Turns off all lights the controller is aware of

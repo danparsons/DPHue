@@ -41,7 +41,7 @@
 }
 
 - (void)readWithCompletion:(void (^)(DPHue *, NSError *))block {
-    NSURLRequest *req = [NSURLRequest requestWithURL:self.readURL];
+    NSURLRequest *req = [NSURLRequest.alloc initWithURL:self.readURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:15.0];
     DPJSONConnection *connection = [[DPJSONConnection alloc] initWithRequest:req];
     connection.completionBlock = block;
     connection.jsonRootObject = self;
@@ -49,24 +49,61 @@
 }
 
 - (void)registerUsername {
-    NSDictionary *usernameDict = @{@"devicetype": self.deviceType, @"username": self.username};
+    DPHue __weak *weakSelf = self;
+    
+    NSDictionary *dict = @{@"devicetype": self.deviceType};
     NSString *urlString = [NSString stringWithFormat:@"http://%@/api/", self.host];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSData *usernameJson = [NSJSONSerialization dataWithJSONObject:usernameDict options:0 error:nil];
+    NSData *json = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
     NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
     req.HTTPMethod = @"POST";
-    req.HTTPBody = usernameJson;
+    req.HTTPBody = json;
+    
     DPJSONConnection *conn = [[DPJSONConnection alloc] initWithRequest:req];
-    NSString *pretty = [[NSString alloc] initWithData:usernameJson encoding:NSUTF8StringEncoding];
+    conn.completionBlock = ^(id obj, NSError *err) {
+        if (err) {
+            WSLog(@"registerUsername: Request to %@ failed: %@", urlString, err);
+            return;
+        }
+        
+        id json = [NSJSONSerialization JSONObjectWithData:obj options:0 error:&err];
+        if (err) {
+            WSLog(@"registerUsername: Failed to deserialize response from %@", urlString);
+            return;
+        }
+        
+        NSDictionary *res = [json isKindOfClass:NSDictionary.class]
+            ? json
+            : [json isKindOfClass:NSArray.class]
+                ? json[0]
+                : @{};
+        
+        NSDictionary *errObj = res[@"error"];
+        if (errObj) {
+            NSNumber *errType = errObj[@"type"] ?: @0;
+            NSString *errDesc = errObj[@"description"] ?: @"(NONE)";
+            WSLog(@"registerUsername: %@ returned error (%@): %@", urlString, errType, errDesc);
+            return;
+        }
+        
+        NSDictionary *success = res[@"success"];
+        if (!success || ![success isKindOfClass:NSDictionary.class] || !success[@"username"]) {
+            WSLog(@"registerUsername: %@ returned an unrecognized response: %@", urlString, json);
+            return;
+        }
+        
+        NSString *username = success[@"username"];
+        WSLog(@"registerUsername: Received username %@", username);
+        weakSelf.username = username;
+        weakSelf.authenticated = YES;
+    };
+    
+    NSString *pretty = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     NSMutableString *msg = [[NSMutableString alloc] init];
     [msg appendFormat:@"Writing to: %@\n", req.URL];
     [msg appendFormat:@"Writing values: %@\n", pretty];
     WSLog(@"%@", msg);
     [conn start];
-}
-
-+ (NSString *)generateUsername {
-    return [[[NSProcessInfo processInfo] globallyUniqueString] MD5String];
 }
 
 - (NSString *)description {
